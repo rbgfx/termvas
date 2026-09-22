@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "optparse"
+require "termvas"
+
+command = ARGV.shift
+if command == "doctor"
+  puts "protocol: #{Termvas::Detector.protocol}"
+  puts "terminal: #{ENV['TERM'] || 'unknown'}"
+  puts "size: #{IO.console&.winsize&.join('x') || 'unknown'}"
+elsif %w[view play].include?(command)
+  require "tessel"
+  fps = 10.0
+  protocol = :auto
+  OptionParser.new do |options|
+    options.on("--fps N", Float) { |value| fps = value }
+    options.on("--protocol NAME") { |value| protocol = value.to_sym }
+  end.parse!(ARGV)
+  raise ArgumentError, "fps must be positive" unless fps.positive?
+  raise ArgumentError, "at least one image is required" if ARGV.empty?
+  files = ARGV.flat_map { |path| File.directory?(path) ? Dir[File.join(path, "*.png")].sort : path }
+  files = [files.first] if command == "view"
+  raise ArgumentError, "at least one image is required" if files.empty?
+  backend = nil
+  files.each do |path|
+    image = Tessel.read(path)
+    rows, columns = IO.console&.winsize || [24, 80]
+    width, height = Termvas::Scaler.contain(image.width, image.height, columns, rows)
+    bytes, = Termvas::Scaler.nearest(image.bytes, image.width, image.height, width, height)
+    backend ||= Termvas::Backend.new(width, height, protocol: protocol, alt_screen: command == "play")
+    backend.set_pixels(bytes, width, height)
+    sleep(1.0 / fps) if command == "play"
+  end
+else
+  warn "usage: termvas doctor | view IMAGE [--protocol NAME] | play IMAGE... [--fps N]"
+  exit 1
+end
+backend&.close if defined?(backend)
