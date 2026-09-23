@@ -1,14 +1,19 @@
-# Termvas
+<h1 align="center">Termvas</h1>
 
-> A terminal display backend for Ruby graphics.
+<p align="center">A terminal display backend for Ruby graphics.</p>
 
-[![Gem version](https://badge.fury.io/rb/termvas.svg)](https://rubygems.org/gems/termvas) [![Downloads](https://img.shields.io/gem/dt/termvas?label=downloads)](https://rubygems.org/gems/termvas) [![Ruby](https://img.shields.io/badge/ruby-%3E%3D3.1-CC342D?logo=ruby&logoColor=white)](https://www.ruby-lang.org/) [![CI](https://github.com/rbgfx/termvas/actions/workflows/main.yml/badge.svg)](https://github.com/rbgfx/termvas/actions/workflows/main.yml) [![License](https://img.shields.io/badge/license-MIT-750014.svg)](LICENSE.txt)
+<p align="center">
+  <a href="https://rubygems.org/gems/termvas"><img src="https://badge.fury.io/rb/termvas.svg" alt="Gem Version"></a>
+  <a href="https://rubygems.org/gems/termvas"><img src="https://img.shields.io/gem/dt/termvas?label=downloads" alt="Downloads"></a>
+  <a href="https://www.ruby-lang.org/"><img src="https://img.shields.io/badge/ruby-%3E%3D3.1-CC342D?logo=ruby&amp;logoColor=white" alt="Ruby Version"></a>
+  <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-750014.svg" alt="License"></a>
+</p>
 
-**[Features](#features) · [Installation](#installation) · [Requirements](#requirements) · [Quick start](#quick-start) · [Terminal notes](#terminal-notes) · [Development](#development) · [License](#license) · [Website](https://rbgfx.github.io/termvas/)**
+[Features](#features) · [Installation](#installation) · [Quick Start](#quick-start) · [Terminal Notes](#terminal-notes)
 
----
+***
 
-Termvas displays RGBA frames in terminals and parses keyboard and mouse input for interactive applications.
+Termvas presents RGBA frames in terminals through half blocks, Kitty, iTerm2, or Sixel output. It also parses keyboard and mouse input for interactive applications.
 
 ## Features
 
@@ -40,12 +45,12 @@ Or install the released gem:
 gem install termvas
 ~~~
 
-## Requirements
+### Requirements
 
 - Ruby 3.1 or newer.
 - Half-block output works in ANSI terminals; Kitty, iTerm2, and Sixel output require matching terminal support.
 
-## Quick start
+## Quick Start
 
 Inspect the current terminal and display an image:
 
@@ -84,6 +89,10 @@ bundle exec rake verify
 ~~~
 
 See [docs/keys.md](docs/keys.md) for the input event mapping.
+
+## Contributing
+
+Bug reports and pull requests are welcome at [rbgfx/termvas](https://github.com/rbgfx/termvas).
 
 ## License
 
