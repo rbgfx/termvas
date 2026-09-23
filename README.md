@@ -1,18 +1,14 @@
 # Termvas
 
-[![Gem version](https://badge.fury.io/rb/termvas.svg)](https://rubygems.org/gems/termvas)
-[![Downloads](https://img.shields.io/gem/dt/termvas?label=downloads)](https://rubygems.org/gems/termvas)
-[![CI](https://github.com/rbgfx/termvas/actions/workflows/main.yml/badge.svg)](https://github.com/rbgfx/termvas/actions/workflows/main.yml)
-[![Ruby](https://img.shields.io/badge/ruby-%3E%3D3.1-CC342D?logo=ruby&logoColor=white)](https://www.ruby-lang.org/)
-[![License](https://img.shields.io/badge/license-MIT-750014.svg)](LICENSE.txt)
-
 > A terminal display backend for Ruby graphics.
 
-Termvas presents RGBA frames in terminals through half blocks, Kitty, iTerm2,
-or Sixel output. It also parses keyboard and mouse input for interactive
-applications.
+[![Gem version](https://badge.fury.io/rb/termvas.svg)](https://rubygems.org/gems/termvas) [![Downloads](https://img.shields.io/gem/dt/termvas?label=downloads)](https://rubygems.org/gems/termvas) [![Ruby](https://img.shields.io/badge/ruby-%3E%3D3.1-CC342D?logo=ruby&logoColor=white)](https://www.ruby-lang.org/) [![CI](https://github.com/rbgfx/termvas/actions/workflows/main.yml/badge.svg)](https://github.com/rbgfx/termvas/actions/workflows/main.yml) [![License](https://img.shields.io/badge/license-MIT-750014.svg)](LICENSE.txt)
 
-**[Features](#features) · [Installation](#installation) · [Quick start](#quick-start) · [Terminal notes](#terminal-notes) · [Development](#development)**
+**[Features](#features) · [Installation](#installation) · [Requirements](#requirements) · [Quick start](#quick-start) · [Terminal notes](#terminal-notes) · [Development](#development) · [License](#license) · [Website](https://rbgfx.github.io/termvas/)**
+
+---
+
+Termvas displays RGBA frames in terminals and parses keyboard and mouse input for interactive applications.
 
 ## Features
 
@@ -43,6 +39,11 @@ Or install the released gem:
 ~~~sh
 gem install termvas
 ~~~
+
+## Requirements
+
+- Ruby 3.1 or newer.
+- Half-block output works in ANSI terminals; Kitty, iTerm2, and Sixel output require matching terminal support.
 
 ## Quick start
 
