@@ -63,7 +63,7 @@ termvas play frames/*.png --fps 10
 Use the backend from Ruby:
 
 ~~~ruby
-require "termvas"
+require "termvas/rbgl"
 
 backend = Termvas::Backend.new(320, 180, protocol: :blocks)
 backend.set_pixels(rgba_bytes, 320, 180)
@@ -72,6 +72,10 @@ backend.close
 
 The backend expects top-down RGBA8 bytes. Set
 <code>TERMVAS_PROTOCOL</code> to force a protocol.
+
+The encoders, protocol detection, input parser, and terminal sizing utilities
+load with <code>require "termvas"</code> alone. The optional RBGL backend is
+available from <code>require "termvas/rbgl"</code>.
 
 ## Terminal notes
 

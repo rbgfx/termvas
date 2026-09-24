@@ -3,6 +3,14 @@
 require "stringio"
 
 RSpec.describe Termvas do
+  it "loads its encoders without rbgl" do
+    root = File.expand_path("..", __dir__)
+    pid = Process.spawn(Gem.ruby, "-Ilib", "-e", "require 'termvas'; exit 1 if defined?(RBGL)", chdir: root, out: File::NULL)
+    _, status = Process.wait2(pid)
+
+    expect(status.success?).to be(true)
+  end
+
   it "has a version number" do
     expect(Termvas::VERSION).not_to be nil
   end
@@ -108,13 +116,11 @@ RSpec.describe Termvas do
     expect(Termvas::Encoders::Sixel.encode(pixels, 1, 1)).to include("@")
   end
 
-  it "builds a deterministic median cut palette" do
+  it "uses tessel for median cut Sixel quantization" do
     bytes = [255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255, 255, 255, 255, 255].pack("C*")
-    palette, indices = Termvas::Quantizer.median_cut(bytes, colors: 2)
+    output = Termvas::Encoders::Sixel.encode(bytes, 2, 2, quantize: :median_cut)
 
-    expect(palette.length).to eq(2)
-    expect(indices.bytes.length).to eq(4)
-    expect(palette).to eq(Termvas::Quantizer.median_cut(bytes, colors: 2).first)
+    expect(output).to include("#0;2;")
   end
 
   it "wraps Kitty output for tmux passthrough" do

@@ -10,6 +10,7 @@ if command == "doctor"
   puts "terminal: #{ENV['TERM'] || 'unknown'}"
   puts "size: #{IO.console&.winsize&.join('x') || 'unknown'}"
 elsif %w[view play].include?(command)
+  require "termvas/rbgl"
   require "tessel"
   fps = 10.0
   protocol = :auto
