@@ -20,53 +20,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Checkout tessel
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: rbgfx/tessel
-          ref: main
-          path: tessel
-          persist-credentials: false
-      - name: Checkout rbgl
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: rbgfx/rbgl
-          ref: main
-          path: rbgl
-          persist-credentials: false
-      - name: Checkout larb
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: rbgfx/larb
-          ref: main
-          path: larb
-          persist-credentials: false
-      - name: Checkout rlsl
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: rbgfx/rlsl
-          ref: main
-          path: rlsl
-          persist-credentials: false
-      - name: Link local dependencies
-        run: |
-          ln -s "$GITHUB_WORKSPACE/tessel" "$GITHUB_WORKSPACE/../tessel"
-          ln -s "$GITHUB_WORKSPACE/rbgl" "$GITHUB_WORKSPACE/../rbgl"
-          ln -s "$GITHUB_WORKSPACE/larb" "$GITHUB_WORKSPACE/../larb"
-          ln -s "$GITHUB_WORKSPACE/rlsl" "$GITHUB_WORKSPACE/../rlsl"
       - name: Set up Ruby
         uses: ruby/setup-ruby@984c0c890880bbf811283d6f09c4607c62d210a4 # v1.323.0
         with:
           ruby-version: '3.3'
-          bundler: Gemfile.lock
+          bundler: default
       - run: bundle install
-      - name: Build larb native extension
-        run: |
-          cd larb/ext/larb
-          ruby extconf.rb
-          make
-          extension="$(ruby -rrbconfig -e 'print RbConfig::CONFIG["DLEXT"]')"
-          cp "larb.$extension" "../../lib/larb/larb.$extension"
       - name: Verify tag and version
         run: |
           version="$(ruby -e 'print Gem::Specification.load(Dir.glob("*.gemspec").fetch(0)).version')"
