@@ -31,6 +31,10 @@ Add Termvas to your Gemfile:
 
 ~~~ruby
 gem "termvas"
+
+# For Termvas::Backend and the `termvas view` / `play` commands:
+gem "rbgl"
+gem "tessel", ">= 0.2.0"
 ~~~
 
 Then run:
@@ -49,6 +53,7 @@ gem install termvas
 
 - Ruby 3.1 or newer.
 - Half-block output works in ANSI terminals; Kitty, iTerm2, and Sixel output require matching terminal support.
+- `require "termvas"` and `termvas doctor` need no extra gems. The RBGL backend needs `rbgl`; `view` / `play`, iTerm2 output, and median-cut Sixel quantization also need `tessel`.
 
 ## Quick Start
 
@@ -72,6 +77,8 @@ backend.close
 
 The backend expects top-down RGBA8 bytes. Set
 <code>TERMVAS_PROTOCOL</code> to force a protocol.
+For Sixel output, pass <code>quantize: :median_cut</code> to the backend to use
+Tessel's shared quantizer; the default uses the fixed palette.
 
 The encoders, protocol detection, input parser, and terminal sizing utilities
 load with <code>require "termvas"</code> alone. The optional RBGL backend is
@@ -84,6 +91,19 @@ terminal cell area. Use <code>fit: :none</code> to keep the source size.
 
 Inside tmux, Kitty and Sixel output uses DCS passthrough and requires
 <code>allow-passthrough on</code> in tmux.
+
+## SSH
+
+Remote environment variables may not identify the local terminal. Select a
+protocol supported by that terminal explicitly, and lower the frame rate on
+slow links:
+
+~~~sh
+termvas play frames/*.png --protocol blocks --fps 5
+~~~
+
+For the Ruby backend, set <code>protocol: :blocks</code> and a lower
+<code>max_fps</code> value.
 
 ## Development
 

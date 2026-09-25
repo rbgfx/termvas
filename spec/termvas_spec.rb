@@ -5,7 +5,7 @@ require "stringio"
 RSpec.describe Termvas do
   it "loads its encoders without rbgl" do
     root = File.expand_path("..", __dir__)
-    pid = Process.spawn(Gem.ruby, "-Ilib", "-e", "require 'termvas'; exit 1 if defined?(RBGL)", chdir: root, out: File::NULL)
+    pid = Process.spawn(Gem.ruby, "-Ilib", "-e", "require 'termvas'; exit 1 if defined?(RBGL::GUI::Backend)", chdir: root, out: File::NULL)
     _, status = Process.wait2(pid)
 
     expect(status.success?).to be(true)

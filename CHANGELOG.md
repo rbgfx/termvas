@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [0.2.0] - 2026-09-24
+## [0.2.0] - 2026-09-25
 
 - Make RBGL an optional backend loaded with `termvas/rbgl`.
 - Use Tessel's shared quantizer for median-cut Sixel output.

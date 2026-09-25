@@ -35,6 +35,20 @@ jobs:
           ref: main
           path: tessel
           persist-credentials: false
+      - name: Checkout rbgl
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: rbgfx/rbgl
+          ref: main
+          path: rbgl
+          persist-credentials: false
+      - name: Checkout larb
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: rbgfx/larb
+          ref: main
+          path: larb
+          persist-credentials: false
       - name: Checkout rlsl
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

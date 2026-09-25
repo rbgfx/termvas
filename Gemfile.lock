@@ -12,13 +12,12 @@ PATH
 PATH
   remote: ../tessel
   specs:
-    tessel (0.1.0)
+    tessel (0.2.0)
 
 PATH
   remote: .
   specs:
-    termvas (0.1.0)
-      rbgl (>= 1.0.0)
+    termvas (0.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -97,8 +96,8 @@ CHECKSUMS
   rspec-expectations (3.13.5)
   rspec-mocks (3.13.8)
   rspec-support (3.13.7)
-  termvas (0.1.0)
-  tessel (0.1.0)
+  termvas (0.2.0)
+  tessel (0.2.0)
   tsort (0.2.0)
 
 BUNDLED WITH
