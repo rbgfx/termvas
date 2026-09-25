@@ -71,6 +71,13 @@ jobs:
           bundler: default
           bundler-cache: true
           working-directory: main
+      - name: Build larb native extension
+        run: |
+          cd ../larb/ext/larb
+          ruby extconf.rb
+          make
+          extension="$(ruby -rrbconfig -e 'print RbConfig::CONFIG["DLEXT"]')"
+          cp "larb/larb.$extension" "../../lib/larb/larb.$extension"
       - name: Run verification
         run: bundle exec rake verify
 

@@ -60,6 +60,13 @@ jobs:
           ruby-version: '3.2'
           bundler: Gemfile.lock
       - run: bundle install
+      - name: Build larb native extension
+        run: |
+          cd larb/ext/larb
+          ruby extconf.rb
+          make
+          extension="$(ruby -rrbconfig -e 'print RbConfig::CONFIG["DLEXT"]')"
+          cp "larb/larb.$extension" "../../lib/larb/larb.$extension"
       - name: Verify tag and version
         run: |
           version="$(ruby -e 'print Gem::Specification.load(Dir.glob("*.gemspec").fetch(0)).version')"
