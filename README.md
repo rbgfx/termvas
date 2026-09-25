@@ -84,6 +84,12 @@ The encoders, protocol detection, input parser, and terminal sizing utilities
 load with <code>require "termvas"</code> alone. The optional RBGL backend is
 available from <code>require "termvas/rbgl"</code>.
 
+<code>Termvas::Terminal#size</code> returns <code>[columns, rows]</code>.
+<code>#cell_size</code> returns estimated pixel dimensions as
+<code>[width, height]</code> (8 × 16 by default). Set
+<code>TERMVAS_CELL_WIDTH</code> and <code>TERMVAS_CELL_HEIGHT</code> to tune the
+estimate; sizing does not query the terminal.
+
 ## Terminal notes
 
 <code>fit: :contain</code> is the default and reduces oversized frames to the

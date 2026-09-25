@@ -271,10 +271,11 @@ module Termvas
   class Terminal
     attr_reader :input, :output
 
-    def initialize(input: $stdin, output: $stdout, alt_screen: true, tmux: false)
+    def initialize(input: $stdin, output: $stdout, alt_screen: true, tmux: false, env: ENV)
       @input = input
       @output = output
       @alt_screen = alt_screen
+      @env = env
       @closed = false
       @opened = false
       @raw = false
@@ -288,8 +289,12 @@ module Termvas
       return [columns, rows] if rows.to_i.positive? && columns.to_i.positive?
 
       fallback_size
-    rescue Errno::ENOTTY, IOError, NoMethodError
+    rescue Errno::ENODEV, Errno::ENOTTY, IOError, NoMethodError
       fallback_size
+    end
+
+    def cell_size
+      [environment_dimension("TERMVAS_CELL_WIDTH", 8), environment_dimension("TERMVAS_CELL_HEIGHT", 16)]
     end
 
     def open
@@ -367,11 +372,18 @@ module Termvas
     end
 
     def fallback_size
-      columns = Integer(ENV.fetch("COLUMNS", 80))
-      rows = Integer(ENV.fetch("LINES", 24))
+      columns = Integer(@env.fetch("COLUMNS", 80))
+      rows = Integer(@env.fetch("LINES", 24))
       [columns.positive? ? columns : 80, rows.positive? ? rows : 24]
     rescue ArgumentError, TypeError
       [80, 24]
+    end
+
+    def environment_dimension(name, fallback)
+      value = Integer(@env.fetch(name, fallback))
+      value.positive? ? value : fallback
+    rescue ArgumentError, TypeError
+      fallback
     end
   end
 

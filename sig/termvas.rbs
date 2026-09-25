@@ -1,4 +1,9 @@
 module Termvas
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  class Terminal
+    def initialize: (?input: untyped, ?output: untyped, ?alt_screen: bool, ?tmux: bool, ?env: Hash[String, String]) -> void
+    def size: () -> [Integer, Integer]
+    def cell_size: () -> [Integer, Integer]
+  end
 end

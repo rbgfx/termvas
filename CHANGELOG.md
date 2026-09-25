@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## [0.3.0] - Unreleased
+
+- Expose terminal cell-size estimates for display fitting, with environment overrides.
 
 ## [0.2.0] - 2026-09-25
 

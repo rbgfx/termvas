@@ -96,6 +96,12 @@ RSpec.describe Termvas do
     expect(Termvas::Terminal.new(input: input, alt_screen: false).size).to eq([80, 24])
   end
 
+  it "estimates cell pixels and accepts environment overrides" do
+    terminal = Termvas::Terminal.new(env: { "TERMVAS_CELL_WIDTH" => "10", "TERMVAS_CELL_HEIGHT" => "20" })
+    expect(terminal.cell_size).to eq([10, 20])
+    expect(Termvas::Terminal.new(env: { "TERMVAS_CELL_WIDTH" => "0" }).cell_size).to eq([8, 16])
+  end
+
   it "presents changed frames through an rbgl window" do
     output = StringIO.new
     backend = Termvas::Backend.new(1, 2, protocol: :blocks, max_fps: nil, output: output, input: StringIO.new, alt_screen: false)
