@@ -77,7 +77,7 @@ jobs:
           ruby extconf.rb
           make
           extension="$(ruby -rrbconfig -e 'print RbConfig::CONFIG["DLEXT"]')"
-          cp "larb/larb.$extension" "../../lib/larb/larb.$extension"
+          cp "larb.$extension" "../../lib/larb/larb.$extension"
       - name: Run verification
         run: bundle exec rake verify
 
