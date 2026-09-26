@@ -179,6 +179,14 @@ module Termvas
       @buffer << bytes
       events = []
       loop do
+        if @buffer.start_with?("\e[")
+          sequence = @buffer.match(/\A\e\[[0-?]*[ -\/]*[@-~]/)
+          break unless sequence
+          unless sequence[0].match?(/\A\e\[<\d+;\d+;\d+[Mm]\z|\A\e\[[0-9;]*[A-Za-z~]\z/)
+            @buffer = @buffer.byteslice(sequence[0].bytesize..).to_s.b
+            next
+          end
+        end
         if @buffer.start_with?("\e[<")
           match = @buffer.match(/\A\e\[<([0-9]+);([0-9]+);([0-9]+)([Mm])/
           )

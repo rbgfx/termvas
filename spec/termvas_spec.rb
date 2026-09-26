@@ -72,6 +72,13 @@ RSpec.describe Termvas do
     expect(parser.feed("\e[3~").first[:key]).to eq(:delete)
   end
 
+  it "continues reading keys after unsupported CSI sequences" do
+    parser = Termvas::InputParser.new
+    expect(parser.feed("\e[?")).to eq([])
+    expect(parser.feed("25lx")).to eq([{ type: :key_press, key: :x, char: "x" }])
+    expect(parser.feed("\e[<0;2;3Xy")).to eq([{ type: :key_press, key: :y, char: "y" }])
+  end
+
   it "maps terminal mouse cells into the displayed image" do
     input = Class.new do
       def initialize
