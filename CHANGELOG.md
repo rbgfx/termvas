@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.1] - 2026-09-26
+
+- Skip unsupported terminal control sequences instead of reporting them as key events.
+- Reject non-finite terminal frame limits.
+
 ## [0.3.0] - 2026-09-25
 
 - Expose terminal cell-size estimates for display fitting, with environment overrides.
