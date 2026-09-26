@@ -54,6 +54,13 @@ RSpec.describe Termvas do
     end.to raise_error(ArgumentError, /fit/)
   end
 
+  it "rejects a non-finite frame limit" do
+    expect do
+      Termvas::Backend.new(1, 1, protocol: :blocks, max_fps: Float::INFINITY,
+                           output: StringIO.new, input: StringIO.new, alt_screen: false)
+    end.to raise_error(ArgumentError, /max_fps/)
+  end
+
   it "parses split arrow and mouse sequences" do
     parser = Termvas::InputParser.new
 

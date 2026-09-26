@@ -17,7 +17,7 @@ module Termvas
       @fit = fit.to_sym
       raise ArgumentError, "fit must be :contain or :none" unless %i[contain none].include?(@fit)
       @max_fps = max_fps.nil? ? nil : Float(max_fps)
-      raise ArgumentError, "max_fps must be positive" if @max_fps && !@max_fps.positive?
+      raise ArgumentError, "max_fps must be positive and finite" if @max_fps && (!@max_fps.positive? || !@max_fps.finite?)
       @terminal = Terminal.new(input: input, output: output, alt_screen: alt_screen, tmux: tmux)
       @output = output
       @input = input
